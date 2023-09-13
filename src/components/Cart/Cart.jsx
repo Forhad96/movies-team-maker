@@ -18,12 +18,15 @@ const remaining = 20000-totalSalary
         <div
           key={actor.id}
           className="flex justify-between items-center text-center mb-3 text-white">
-          <div className="space-y-2 shadow-2xl w-2/3 flex items-center gap-4 bg-slate-800">
+          <div className="space-y-2 px-2 shadow-2xl w-2/3 flex items-center gap-4 bg-slate-800">
+            <button className="bg-red-300">❌</button>
             <img className="w-20 h-20 rounded" src={actor.image} alt="" />
+            
 
             <h3 className="text-sm font-bold">
               {actor.role}: <span className="underline">{actor.name}</span>
             </h3>
+
           </div>
 
           <div>
