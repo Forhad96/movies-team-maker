@@ -7,6 +7,7 @@ import { saveLocalStorageData } from "./utils/localStorage";
 function App() {
   const [selectedActors, setSelectedActors] = useState([]);
   const [totalSalary, setTotalSalary] = useState(0);
+// setTotalSalary(previousTotal);
 
 
   const handleSelect = (handleActor) => {
@@ -17,21 +18,34 @@ function App() {
       return alert("Already added");
     } else {
       if (totalSalary + handleActor.salary >= 20000) {
-        alert("Balance inefficient");
-        return;
+        return alert("Balance inefficient");
+        
       }
-      // calculator Total Salary
-      setTotalSalary(totalSalary + handleActor.salary);
       setSelectedActors([...selectedActors, handleActor]);
+
+        // calculator to set Total Salary
+        setTotalSalary(totalSalary + handleActor.salary);
+
+
+
+
+
+
+
+
+
+        // save to local storage data
       saveLocalStorageData(handleActor.id)
+
     }
   };
-  console.log(selectedActors);
+  
 
   return (
     <div className="container mx-auto">
       <div className="md:flex justify-between gap-5 mt-10">
         <Actors 
+        setTotalSalary={setTotalSalary}
         setSelectedActors={setSelectedActors}
         handleSelect={handleSelect}></Actors>
         <Cart
