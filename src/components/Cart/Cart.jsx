@@ -1,18 +1,19 @@
 import PropTypes from "prop-types";
 
-const Cart = ({ selectedActors,totalSalary,handleRemoveCart}) => {
-const remaining = 20000-totalSalary
+const Cart = ({ selectedActors,totalSalary,handleRemoveCart,handleBudget,budget}) => {
+const remaining = budget-totalSalary
 
   return (
     <div className="w-1/3 sticky h-full">
-      <div className="flex justify-between text-2xl text-white text-center border-b-4 mb-5">
-        <h3 className="mb-3">
-          <span className="underline">Budget:-</span>$40000
-        </h3>
-        <h1 className="mb-3">
-          <span className="underline">Remaining:</span>
-          {remaining}
-        </h1>
+      <div className="flex justify-between text-2xl text-white border-b-4 mb-5">
+        <div className="mb-3">
+          <p className="underline">Budget:-</p>
+          <input onChange={handleBudget} className="w-1/2 my-3 bg-transparent border-2 rounded" placeholder="Enter your-$" type="number"></input>
+        </div>
+        <div className="mb-3">
+          <p className="underline">Remaining:</p>
+          <p className="border-2 rounded px-4 my-3">${remaining}</p>
+        </div>
       </div>
       {selectedActors.map((actor) => (
         <div
@@ -45,7 +46,9 @@ const remaining = 20000-totalSalary
 Cart.propTypes = {
   selectedActors: PropTypes.any.isRequired,
   totalSalary: PropTypes.any.isRequired,
-  handleRemoveCart: PropTypes.any.isRequired
+  handleRemoveCart: PropTypes.any.isRequired,
+  handleBudget: PropTypes.any.isRequired,
+  budget: PropTypes.any.isRequired
 
 };
 

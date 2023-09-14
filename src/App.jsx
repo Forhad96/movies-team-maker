@@ -7,6 +7,7 @@ import { removeFromLS, saveLocalStorageData } from "./utils/localStorage";
 function App() {
   const [selectedActors, setSelectedActors] = useState([]);
   const [totalSalary, setTotalSalary] = useState(0);
+  const [budget,setBudget] = useState(0)
 
 // handle for select actor cart
   const handleSelect = (handleActor) => {
@@ -16,7 +17,7 @@ function App() {
     if (isExist) {
       return alert("Already added");
     } else {
-      if (totalSalary + handleActor.salary >= 20000) {
+      if (totalSalary + handleActor.salary >= budget) {
         return alert("Balance inefficient");
         
       }
@@ -39,6 +40,10 @@ function App() {
     setTotalSalary(totalSalary-removeSalary)
     removeFromLS(removeId)
   }
+  // handle for budget 
+  const handleBudget =(e)=>{
+    setBudget(e.target.value);
+  }
 
   return (
     <div className="container mx-auto">
@@ -49,6 +54,8 @@ function App() {
         handleSelect={handleSelect}></Actors>
         <Cart
           totalSalary={totalSalary}
+          handleBudget={handleBudget}
+          budget={budget}
           handleRemoveCart={handleRemoveCart}
           selectedActors={selectedActors}></Cart>
       </div>
