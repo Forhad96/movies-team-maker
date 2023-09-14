@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const Cart = ({ selectedActors,totalSalary}) => {
+const Cart = ({ selectedActors,totalSalary,handleRemoveCart}) => {
 const remaining = 20000-totalSalary
 
   return (
@@ -19,7 +19,7 @@ const remaining = 20000-totalSalary
           key={actor.id}
           className="flex justify-between items-center text-center mb-3 text-white">
           <div className="space-y-2 px-2 shadow-2xl w-2/3 flex items-center gap-4 bg-slate-800">
-            <button className="bg-red-300">❌</button>
+            <button onClick={()=>handleRemoveCart(actor.id,actor.salary)} className="bg-red-300">❌</button>
             <img className="w-20 h-20 rounded" src={actor.image} alt="" />
             
 
@@ -44,7 +44,9 @@ const remaining = 20000-totalSalary
 };
 Cart.propTypes = {
   selectedActors: PropTypes.any.isRequired,
-  totalSalary: PropTypes.number.isRequired
+  totalSalary: PropTypes.any.isRequired,
+  handleRemoveCart: PropTypes.any.isRequired
+
 };
 
 export default Cart;

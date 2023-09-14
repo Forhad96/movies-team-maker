@@ -6,12 +6,29 @@ function getLocalStorageData(){
     return []
 }
 
-
-const saveLocalStorageData = (data)=>{
-    const cart = getLocalStorageData()
-    cart.push(data)
+const setLSDat = (cart)=>{
     const dataStr = JSON.stringify(cart)
     localStorage.setItem("cart",dataStr)
 }
+const saveLocalStorageData = (data)=>{
+    const cart = getLocalStorageData()
+    cart.push(data)
+    setLSDat(cart)
+}
 
-export{getLocalStorageData,saveLocalStorageData}
+// const receivedData= ()=>{
+//     const cart = getLocalStorageData()
+//     cart.push(data)
+// }
+
+const removeFromLS=(id)=>{
+    const cart = getLocalStorageData()
+  const  filteredData = cart.filter(data => data !== id);
+//   cart.push(filteredData)
+//   saveLocalStorageData(filteredData)
+setLSDat(filteredData)
+console.log(...filteredData);
+
+}
+
+export{getLocalStorageData,saveLocalStorageData,removeFromLS}

@@ -2,14 +2,13 @@ import { useState } from "react";
 import "./App.css";
 import Actors from "./components/Actors/Actors";
 import Cart from "./components/Cart/Cart";
-import { saveLocalStorageData } from "./utils/localStorage";
+import { removeFromLS, saveLocalStorageData } from "./utils/localStorage";
 
 function App() {
   const [selectedActors, setSelectedActors] = useState([]);
   const [totalSalary, setTotalSalary] = useState(0);
-// setTotalSalary(previousTotal);
 
-
+// handle for select actor cart
   const handleSelect = (handleActor) => {
     const isExist = selectedActors.find(
       (selectedActor) => selectedActor.id === handleActor.id
@@ -26,20 +25,20 @@ function App() {
         // calculator to set Total Salary
         setTotalSalary(totalSalary + handleActor.salary);
 
-
-
-
-
-
-
-
-
         // save to local storage data
       saveLocalStorageData(handleActor.id)
 
     }
   };
-  
+  // handle for remove from cart
+  const handleRemoveCart = (removeId,removeSalary)=>{
+    // console.log('removed',actorId);
+    const afterRemove = selectedActors.filter(actor=>actor.id !== removeId)
+    setSelectedActors(afterRemove)
+    // const reduceSalary = selectedActors.find(actor=> actor.salary )
+    setTotalSalary(totalSalary-removeSalary)
+    removeFromLS(removeId)
+  }
 
   return (
     <div className="container mx-auto">
@@ -50,6 +49,7 @@ function App() {
         handleSelect={handleSelect}></Actors>
         <Cart
           totalSalary={totalSalary}
+          handleRemoveCart={handleRemoveCart}
           selectedActors={selectedActors}></Cart>
       </div>
     </div>
