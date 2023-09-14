@@ -4,7 +4,7 @@ const Cart = ({ selectedActors,totalSalary,handleRemoveCart,handleBudget,budget}
 const remaining = budget-totalSalary
 
   return (
-    <div className="w-1/3 sticky h-full">
+    <div className="w-1/3 sticky h-full top-10">
       <div className="flex justify-between text-2xl text-white border-b-4 mb-5">
         <div className="mb-3">
           <p className="underline">Budget:-</p>

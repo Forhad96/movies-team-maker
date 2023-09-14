@@ -3,6 +3,7 @@ import "./App.css";
 import Actors from "./components/Actors/Actors";
 import Cart from "./components/Cart/Cart";
 import { removeFromLS, saveLocalStorageData } from "./utils/localStorage";
+import swal from 'sweetalert'
 
 function App() {
   const [selectedActors, setSelectedActors] = useState([]);
@@ -15,10 +16,13 @@ function App() {
       (selectedActor) => selectedActor.id === handleActor.id
     );
     if (isExist) {
-      return alert("Already added");
+      return swal("Already added", "Please select another Actor!", "error");
+      // return alert("Already added");
     } else {
       if (totalSalary + handleActor.salary >= budget) {
-        return alert("Balance inefficient");
+        return swal("Balance inefficient", "Please Extend the range!", "error");
+
+        // return alert("Balance inefficient");
         
       }
       setSelectedActors([...selectedActors, handleActor]);
@@ -33,12 +37,37 @@ function App() {
   };
   // handle for remove from cart
   const handleRemoveCart = (removeId,removeSalary)=>{
-    // console.log('removed',actorId);
-    const afterRemove = selectedActors.filter(actor=>actor.id !== removeId)
-    setSelectedActors(afterRemove)
-    // const reduceSalary = selectedActors.find(actor=> actor.salary )
-    setTotalSalary(totalSalary-removeSalary)
-    removeFromLS(removeId)
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      const afterRemove = selectedActors.filter(actor=>actor.id !== removeId)
+      setSelectedActors(afterRemove)
+    
+      setTotalSalary(totalSalary-removeSalary)
+      removeFromLS(removeId)
+      if (willDelete) {
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+          
+        });
+      } else {
+        swal("Your imaginary file is safe!");
+      }
+    });
+    // const afterRemove = selectedActors.filter(actor=>actor.id !== removeId)
+    // setSelectedActors(afterRemove)
+  
+    // setTotalSalary(totalSalary-removeSalary)
+    // removeFromLS(removeId)
+
+
+
+
   }
   // handle for budget 
   const handleBudget =(e)=>{
